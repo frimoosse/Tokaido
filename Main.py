@@ -1,2 +1,2 @@
 #Tokaido game
-print('ça marche?')
+print('ça marche?') # si ca marche c'est fou 
