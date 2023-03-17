@@ -4,7 +4,8 @@
 
 import pygame as pyg
 import random as r
-import Card_effect as ce
+import Card_effect_rencontre as ce
+import Character as ch
 import Stations_effects as se
 import pickle as p
 import csv
@@ -12,12 +13,31 @@ import csv
 # répartition des cases relais sur le plateau
 
 relais = [1,15,28,42,55]
+Character_random = [1,2,3,4,5,6,7,8,9,10]
 
 # jeux à update sans interface singleplayer
 
 partie = True
 place = 1                   ## il faudra allez chercher la position sur la bdd
 a=1
+
+
+# Choix du personnage surement changer dans les prochaines versions
+
+choice = 0
+Character_random = r.shuffle(Character_random) ## il faudrait trouver un moyen d'étendre ce shuffle a tout le monde ou un autre moyen de distribuer les cartes
+while choice !=1 or choice !=2
+choice = int(input(' choix 1 : ', Character_random[0],' choix 2 : ', Character_random[1]))
+with open('Character_list.csv') as chara:
+    csv_reader = csv.reader(chara, delimiter = ',')
+    line_count = choice
+    for row in csv_reader:
+        if line_count == row[0]:
+            character = row[1]
+ch.characters(character)
+
+# Debut de la partie
+
 while partie:
 
     move = int(input("allez a la case X"))
@@ -31,9 +51,15 @@ while partie:
         for row in csv_reader:
 
             if str(line_count) == row[0]:
-                effect = row[1]
-    
+                case = row[1]
+
+    ch.chara_effect(choice)                                 # effet du personnage choisis
+
+    ## mettre ici l'effet de la case
+
     if move == relais[a]:                                   # nouvelle limite
         a += 1    
 
     place = move              ## il faudra modifier la position sur la BDD en plus
+
+    
