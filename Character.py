@@ -1,39 +1,7 @@
 # Character
+## fonctionne probablement pas
 
-def characters(choice):
-    if choice == 'Hiroshige':
-        piece = 3
-        
-    elif choice == 'Kinko':
-        piece = 7
-    
-    elif choice == 'Sasayakko':
-        piece = 5
-
-    elif choice == 'Chuubei':
-        piece = 4
-
-    elif choice == 'Yoshiyasu':
-        piece = 9
-
-    elif choice == 'Satsuki':
-        piece = 2
-
-    elif choice == 'Mitsukuni':
-        piece = 6
-    
-    elif choice == 'Hirotada':
-        piece = 8
-
-    elif choice == 'Umegae':
-        piece = 5
-
-    elif choice == 'Zen-emon':
-        piece = 6
-
-
-
-def chara_effect(choice) :
+def chara_effect(choice, panorama_mer, panorama_riziere, panorama_montagne, point, effect, achat, case) :
     if choice == 'Hiroshige':
         if effect == 'relais' :
             panorama = 0 
@@ -50,23 +18,23 @@ def chara_effect(choice) :
                 else:
                     None
             elif panorama == 3:
-                if panorama_montagne != 4
+                if panorama_montagne != 4:
                     panorama_montagne += 1
                 else:
                     None
 
     elif choice == 'Kinko':
-        ## prix du repas 1 piece moins chere
-        ### pas encore coder les repas a chaque relais
-        print('pas coder')
+            ## prix du repas 1 piece moins chere
+            ### pas encore coder les repas a chaque relais
+            print('pas coder')
 
     elif choice == 'Sasayakko':
-        if achat >= 2:
-            print('pas coder')
-            ## le moins gratuit
-            ### achat pas encore coder
-        else:
-            None
+            if achat >= 2:
+                print('pas coder')
+                ## le moins gratuit
+                ### achat pas encore coder
+            else:
+                None
 
     elif choice == 'Chuubei':
         ## pioche une carte rencontre, fonction pioche pas coder

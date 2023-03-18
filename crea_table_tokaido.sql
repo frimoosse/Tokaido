@@ -1,4 +1,4 @@
--- Active: 1678537758458@@127.0.0.1@3306
+-- Active: 1678537758458@@127.0.0.1@3303
 CREATE DATABASE Tokaido
     DEFAULT CHARACTER SET = 'utf8mb4'
 
@@ -91,7 +91,7 @@ ENGINE=INNODB;
 INSERT INTO Echoppe
 VALUES (1,'Yunomi',1),(2,'Gofu',1),(3,'Koma',1),(4,'Hashi',1),(5,'Uchiwa',1),(6,'Washi',1),
         (7,'Konpeito',1),(8,'Manju',1),(9,'Kanaboto',1),(10,'Daifuku',2),(11,'Ocha',2),(12,'Sake',2),
-        (13,'Sandogasa',2),(14,'Yukata',2),(15,'Furoshiki',2),(16,'geta',2),(17,'Kan Iashi',2),(18,'Haori',2),
+        (13,'Sandogasa',2),(14,'Yukata',2),(15,'Furoshiki',2),(16,'geta',2),(17,'Kanzashi',2),(18,'Haori',2),
         (19,'Netsuke',2),(20,'Jubako',2),(21,'Shikki',2),(22,'Shamisen',3),(23,'Sumie',3),(24,'Ukiyoe',3);
 
 INSERT INTO Relais
