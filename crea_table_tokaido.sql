@@ -8,6 +8,7 @@ CREATE TABLE Joueur (
 	j_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	j_pseudo VARCHAR(10),
 	j_mdp VARCHAR(10),
+	j_points INT,
     j_couleur INT,
 	j_win INT,
 	j_lose INT,
