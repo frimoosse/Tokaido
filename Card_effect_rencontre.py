@@ -1,6 +1,6 @@
 #Tokaido meeting card and impact
 
-def effet(rencontre):
+def effet(rencontre, panorama_mer, panorama_montagne, panorama_riziere, piece, temple, point):
     if rencontre == 'Annaibito Rizière' :
         if panorama_riziere != 3:
             panorama_riziere += 1

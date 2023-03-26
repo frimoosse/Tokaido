@@ -1,19 +1,20 @@
--- Active: 1678537758458@@127.0.0.1@3303
-CREATE DATABASE Tokaido
-    DEFAULT CHARACTER SET = 'utf8mb4'
+DROP DATABASE IF EXISTS Tokaido;
 
-USE Tokaido
+CREATE DATABASE Tokaido
+    DEFAULT CHARACTER SET = 'utf8';
+
+USE Tokaido;
 
 CREATE TABLE Joueur (
 	j_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	j_pseudo VARCHAR(10),
-	j_mdp VARCHAR(10),
-	j_points INT,
-    j_couleur INT,
-	j_win INT,
-	j_lose INT,
-    j_money INT,
-    j_position INT NOT NULL,
+	j_pseudo VARCHAR(20),
+	j_mdp VARCHAR(20),
+	j_win INT DEFAULT 0,
+	j_lose INT DEFAULT 0,
+  j_position INT DEFAULT 0,
+  j_couleur VARCHAR(20) DEFAULT 'NONE',
+  j_money INT DEFAULT 0,
+  j_point INT DEFAULT 0,
 	PRIMARY KEY (j_id)
 )
 ENGINE=INNODB;
