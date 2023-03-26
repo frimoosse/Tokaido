@@ -11,10 +11,10 @@ CREATE TABLE Joueur (
 	j_mdp VARCHAR(20),
 	j_win INT DEFAULT 0,
 	j_lose INT DEFAULT 0,
-    j_position INT DEFAULT 0,
-    j_couleur VARCHAR(20) DEFAULT 'NONE',
-    j_money INT DEFAULT 0,
-    j_point INT DEFAULT 0,
+  j_position INT DEFAULT 0,
+  j_couleur VARCHAR(20) DEFAULT 'NONE',
+  j_money INT DEFAULT 0,
+  j_point INT DEFAULT 0,
 	PRIMARY KEY (j_id)
 )
 ENGINE=INNODB;
