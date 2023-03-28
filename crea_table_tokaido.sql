@@ -22,7 +22,7 @@ ENGINE=INNODB;
 
 -- Première Pioche, ici Relais (repas)
 
-CREATE TABLE Relais (
+CREATE TABLE Repas (
     id_repas INT NOT NULL,
     nom_repas VARCHAR(100),
     cout INT,
@@ -33,10 +33,10 @@ ENGINE=INNODB;
 -- Deuxième pioche, ici Echoppe
 
 CREATE TABLE Echoppe (
-    id_souvenir INT NOT NULL,
+    id_echoppe INT NOT NULL,
     nom_souvenir VARCHAR(100),
     prix INT,
-    PRIMARY KEY (id_souvenir)
+    PRIMARY KEY (id_echoppe)
 )
 ENGINE=INNODB;
 
@@ -56,7 +56,7 @@ CREATE TABLE Inventaire_Echoppe (
     id_item INT NOT NULL,
     CONSTRAINT pk_Inventaire_Echoppe PRIMARY KEY(id_joueur, id_item),
     CONSTRAINT fk_id_joueur FOREIGN KEY (id_joueur) REFERENCES Joueur(j_id),
-    CONSTRAINT fk_id_item FOREIGN KEY (id_item) REFERENCES Echoppe(id_souvenir)
+    CONSTRAINT fk_id_item FOREIGN KEY (id_item) REFERENCES Echoppe(id_echoppe)
 )
 ENGINE=INNODB;
 
@@ -67,7 +67,7 @@ CREATE TABLE Inventaire_Relais (
     id_manger INT NOT NULL,
     CONSTRAINT pk_Inventaire_Relais PRIMARY KEY(id_perso, id_manger),
     CONSTRAINT fk_id_perso FOREIGN KEY (id_perso) REFERENCES Joueur(j_id),
-    CONSTRAINT fk_id_manger FOREIGN KEY (id_manger) REFERENCES Relais(id_repas)
+    CONSTRAINT fk_id_manger FOREIGN KEY (id_manger) REFERENCES Repas(id_repas)
 )
 ENGINE=INNODB;
 
@@ -78,7 +78,7 @@ CREATE TABLE Inventaire_Rencontre (
     id_qui INT NOT NULL,
     CONSTRAINT pk_Inventaire_Rencontre PRIMARY KEY(id_voyageur, id_qui),
     CONSTRAINT fk_id_voyageur FOREIGN KEY (id_voyageur) REFERENCES Joueur(j_id),
-    CONSTRAINT fk_id_qui FOREIGN KEY (id_qui) REFERENCES Relais(id_repas)
+    CONSTRAINT fk_id_qui FOREIGN KEY (id_qui) REFERENCES Rencontre(id_rencontre)
 )
 ENGINE=INNODB;
 
@@ -96,7 +96,7 @@ VALUES (1,'Yunomi',1),(2,'Gofu',1),(3,'Koma',1),(4,'Hashi',1),(5,'Uchiwa',1),(6,
         (13,'Sandogasa',2),(14,'Yukata',2),(15,'Furoshiki',2),(16,'geta',2),(17,'Kanzashi',2),(18,'Haori',2),
         (19,'Netsuke',2),(20,'Jubako',2),(21,'Shikki',2),(22,'Shamisen',3),(23,'Sumie',3),(24,'Ukiyoe',3);
 
-INSERT INTO Relais
+INSERT INTO Repas
 VALUES (1,'Misoshiru',1),(2,'Misoshiru',1),(3,'Misoshiru',1),(4,'Nigirimeshi',1),(5,'Nigirimeshi',1),(6,'Nigirimeshi',1),
         (7,'Dango',1),(8,'Dango',1),(9,'Dango',1),(10,'Yakitori',2),(11,'Yakitori',2),(12,'Soba',2),(13,'Soba',2),
         (14,'Sushi',2),(15,'Sushi',2),(16,'Tofu',2),(17,'Tofu',2),(18,'Tempura',2),(19,'Tempura',2),

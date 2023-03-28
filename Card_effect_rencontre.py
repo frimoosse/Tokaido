@@ -1,5 +1,7 @@
 #Tokaido meeting card and impact
 
+from fonction import pioche
+
 def effet(rencontre, panorama_mer, panorama_montagne, panorama_riziere, piece, temple, point):
     if rencontre == 'Annaibito Rizière' :
         if panorama_riziere != 3:
@@ -21,7 +23,7 @@ def effet(rencontre, panorama_mer, panorama_montagne, panorama_riziere, piece, t
 
     elif rencontre == 'Shokunin':
         point += 1         ## a faire dans la BDD
-        ## pioche une carte souvenir
+        return(pioche(1,"rencontre"))
 
     elif rencontre == 'Miko':
         temple += 1        ## a faire dans la BDD
