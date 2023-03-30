@@ -5,7 +5,7 @@
 -- Requête de début de partie
 
 INSERT INTO joueur
-VALUES ('pseudo','mdp',NULL,nb_win,nb_lose,NULL,0,'couleur'); -- tout ce qui n'est pas null ou 0 sera ajouté via python en début de partie
+VALUES ('pseudo','mdp',nb_win,nb_lose,NULL,'couleur',NULL,0); -- tout ce qui n'est pas null ou 0 sera ajouté via python en début de partie
 
 
 

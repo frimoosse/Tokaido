@@ -38,14 +38,18 @@ for player in list_of_player:
 
 r.shuffle(list_of_player)
 player_turn = list_of_player[0]
+case = None
+
+nb_in_relais = 0
 
 while partie:
 
     print("Tour de " + player_turn.pseudo)
+    player_turn.Display_player()
 
     move = int(input("allez a la case X"))
     for player in list_of_player:
-        if player.position == move:
+        if player.position == move and case != "relais":
             move = -1
 
     with open('plateau.csv') as board:                      #  permet de lire le csv contenant les cases du plateau
@@ -58,12 +62,15 @@ while partie:
     if case == "echoppe" and player_turn.yen == 0:
         move = -1
 
+    if case == "temple" and player_turn.yen == 0:
+        move = -1
+
     while move <= player_turn.position or move > relais[a]:
         print('vous ne pouvez pas')
         move = int(input("allez a la case X"))
 
         for player in list_of_player:
-            if player.position == move:
+            if player.position == move and case != "relais":
                 move = -1
 
         with open('plateau.csv') as board:                      
@@ -76,7 +83,7 @@ while partie:
         if case == "echoppe" and player_turn.yen == 0:
             move = -1
 
-    ## mettre ici l'effet de la case
+    se.station_effect(case,player_turn,nb_in_relais,nb_joueur)
 
     player_turn.position = move              ## il faudra modifier la position sur la BDD en plus
 
@@ -94,3 +101,16 @@ while partie:
     
     if nb_in_relais == nb_joueur:
         a += 1
+        nb_in_relais = 0
+
+    player_turn.Display_player()
+
+    if a == 5:
+        partie = False
+
+max = 0
+for player in list_of_player:
+    if player.point > max:
+        max = player
+
+print(f"gagnant est {max.pseudo}")

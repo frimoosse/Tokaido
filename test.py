@@ -1,36 +1,26 @@
-import mysql.connector as mysql
+import Classe
+import fonction
+import csv
 
-# nécessite une personne dans la bdd
+player = Classe.joueur("fr","p")
 
-loop = True
 
-while loop:
-    count = 0
-    id = input("identifiant : ")
-    conn = mysql.connect(host = "127.0.0.1",
-                         user = "root", password="root",
-                         database="tokaido")
+pioche = fonction.pioche(2,"repas")
+print(pioche)
+choix = int(input("repas choisi"))
 
-    cursor = conn.cursor()
+if choix == -1:
+    print("ici")
 
-    query = "SELECT J_pseudo FROM Joueur"
-    cursor.execute(query)
+else:
+    choix = pioche[choix]
 
-    for pseudo in cursor:
-        if pseudo[0] == id:
-            print("pseudo déja utilisé")
-            count += 1
-
-    if count == 0:
-        loop = False
-
-mdp = input("mot de passe ")
-
-user = (id , mdp)
-
-query_bis = "INSERT INTO joueur" "(j_pseudo,j_mdp)" "VALUES (%s,%s)"
-cursor.execute(query_bis , user)
-
-conn.commit()
-cursor.close()
-conn.close()
+with open('repas.csv') as repas:                      
+    csv_reader = csv.reader(repas, delimiter = ',')
+    nom_repas = choix
+    for row in csv_reader:
+        if str(nom_repas) == row[0]:
+            prix = row[1]
+            
+print(prix)
+print(player.yen)
