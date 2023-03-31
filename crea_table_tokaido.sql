@@ -15,6 +15,7 @@ CREATE TABLE Joueur (
   j_couleur VARCHAR(20) DEFAULT 'NONE',
   j_money INT DEFAULT 0,
   j_point INT DEFAULT 0,
+  j_offrande INT DEFAULT 0,
 	PRIMARY KEY (j_id)
 )
 ENGINE=INNODB;

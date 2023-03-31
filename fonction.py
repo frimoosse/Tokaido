@@ -31,8 +31,8 @@ def pioche (nb_carte_pioche, case_type):
 
         cursor.execute(query_2 , pioche_rd)
         for items in cursor:
-            if items[0] not in b:
-                b.append(items[0])
+            if items[1] not in b:
+                b.append(items[1])
                 count += 1
         
     cursor.close()
