@@ -4,8 +4,7 @@
 
 import pygame as pyg
 import random as r
-import Card_effect_rencontre as ce
-import Character as ch
+import Card_effect_rencontre as ce 
 import Stations_effects as se
 import pickle as p
 import csv

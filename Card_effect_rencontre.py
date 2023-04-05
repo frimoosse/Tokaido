@@ -17,7 +17,7 @@ def effet(rencontre, player):
         else:
             None
     
-    elif rencontre == 'Annabito Montagne':
+    elif rencontre == 'Annaibito Montagne':
         if player.panorama_montagne != 4:
             player.panorama_montagne += 1
             player.point += player.panorama_montagne
