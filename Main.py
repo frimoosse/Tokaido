@@ -14,3 +14,8 @@ while choice != -1:
 6:  Allez-Retour
 
     """))
+
+character     = True
+trajet_retour = False
+gastronomie   = False
+preparatif    = False
