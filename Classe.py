@@ -27,3 +27,7 @@ class Repas():
 class item():
     def __init__(self):
         self.allcard = []
+
+
+        
+    

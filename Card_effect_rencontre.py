@@ -25,8 +25,9 @@ def effet(rencontre, player):
             None
 
     elif rencontre == 'Shokunin':
+        a = []
         player.point += 1         ## a faire dans la BDD
-        return(pioche(1,"rencontre"))
+        print("a mieux refaire")
 
     elif rencontre == 'Miko':
         player.offrande += 1        ## a faire dans la BDD

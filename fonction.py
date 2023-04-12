@@ -53,3 +53,10 @@ def check_panorama(player,case):
         return True
     else:
         return False
+
+def preparatifs(list_of_player):        # liste des joueurs triée dans l'ordre de départ #########################
+    y = 2
+    for player in reversed(list_of_player) :
+        player.yen += y
+        if y != -1 :
+            y -= 1
