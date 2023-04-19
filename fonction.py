@@ -60,3 +60,19 @@ def preparatifs(list_of_player):        # liste des joueurs triée dans l'ordre 
         player.yen += y
         if y != -1 :
             y -= 1
+
+
+def inventory_count(player):
+    loop = True
+    while loop:
+        collection = []
+        if player.inventory == []:
+            loop = False
+        a=0
+        for item in player.inventory:
+            if item.type not in collection:
+                collection.append(item.type)
+                del(player.inventory[a])
+            a += 1
+        if collection != []:
+            player.point += 1 + 2*len(collection-1)  # player derive seconde # suite AHRItmétique
