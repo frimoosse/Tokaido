@@ -3,7 +3,9 @@ import Card_effect_rencontre as cer
 import fonction as f
 import random as r
 import csv
-import Main
+#import Main  il ne faut pas import main n'y voyage initiatique
+import pygame
+import sys
 
 class joueur ():
     def __init__ (self, pseudo, colour):
@@ -24,6 +26,14 @@ class joueur ():
     def Display_player (self):
         print("pseudo : ",self.pseudo,"\ncouleur : ",self.colour,"\npersonnage : ",self.character,"\npoint : ",self.point,"\npiece : ",self.yen,"\nnb panorama mer : ",self.panorama_mer,"\npanorama montagne : ",self.panorama_montagne,"\nnb panorama riziere : ",self.panorama_riziere)
 
+class Crosshair(pygame.sprite.Sprite):
+    def __init__(self, picture_path):
+        super().__init__()
+        self.image = pygame.image.load(picture_path)
+        self.rect = self.image.get_rect()
+    def update (self):
+        self.rect.center = pygame.mouse.get_pos()
+
 class Repas():
     def __init__ (self):
         self.actuel = []
@@ -42,12 +52,34 @@ class defausse ():
 
         
 class station():
-    def __init__(self, nom, place):
+    def __init__(self, num_case, nom, place, pos_x, pos_y,board):
+        # pour le jeu
+        self.num_case = num_case
         self.nom = nom
         self.place = place
         self.chara = []     # nombre de personne sur la case <= self.place
+        # pour l'interface
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.pos = (pos_x,pos_y)
+        self.board = board
+        self.enable = True 
+        
+    def draw(self):
+        station_hitbox = pygame.surface.Surface((100,100))
+        self.board.blit(station_hitbox,self.pos)
 
-class temple (station):
+    def hit (self, a, moving):
+        cursor_position = pygame.mouse.get_pos()
+        left_click = pygame.mouse.get_pressed()[0]
+        station_hitbox = pygame.rect.Rect((a + self.pos_x,self.pos_y),(100,100))
+        if left_click and station_hitbox.collidepoint(cursor_position) and self.enable and not moving:
+            print(self.nom)
+            return self.nom
+        else:
+            return False
+
+class temple(station):
     def effect (player, repas,items,nb_joueur):
         offrande = int(input("nombre de piece a offrir"))
         while offrande > player.yen:
@@ -60,7 +92,7 @@ class temple (station):
         player.point += offrande
 
 class rencontre (station):
-    def effect (player, repas,items,nb_joueur) :
+    def effect (self, player, repas, items, nb_joueur) :
         if player.character == "Yoshiyasu":
             p=[]
             pioche = f.pioche(2,station,p)[0]
@@ -78,33 +110,33 @@ class rencontre (station):
             player.point += 1
 
 class source (station):
-    def effect (player, repas,items,nb_joueur):
+    def effect (self, player, repas, items, nb_joueur):
         pt = r.randint(2,3)
         player.point += pt
         if player.character == "Mitsukuni":
             player.point += 1
 
 class riziere (station):
-    def effect (player, repas,items,nb_joueur):
+    def effect (self, player, repas, items, nb_joueur):
         rencontre = 'Annaibito Rizière'
         cer.effet(rencontre,player)
 
 class montagne (station):
-    def effect (player, repas,items,nb_joueur):
+    def effect (self, player, repas, items, nb_joueur):
         rencontre = 'Annaibito Montagne'
         cer.effet( rencontre ,player)
 
 class mer (station):
-    def effect (player, repas,items,nb_joueur):
+    def effect (self, player, repas, items, nb_joueur):
         rencontre = 'Annaibito Mer'
         cer.effet(rencontre,player)
 
 class ferme (station):
-    def effect (player, repas,items,nb_joueur):
+    def effect (self, player, repas, items, nb_joueur):
         player.yen += 3
 
 class relais (station):
-    def effect (player, repas,items,nb_joueur):
+    def effect (self, player, repas, items, nb_joueur):
         if player.character == "Chuubei":
             p=[]
             pioche = f.pioche(1,"rencontre",p)[0]
@@ -167,7 +199,7 @@ class relais (station):
 
             
 class echoppe (station):
-    def effect (player, repas,items,nb_joueur):
+    def effect (self, player, repas, items, nb_joueur):
         achat = []
         pioche_memory =[]
         pioche,memoire = f.pioche(3,station,items.allcard)

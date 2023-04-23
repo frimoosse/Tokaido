@@ -4,6 +4,7 @@
 
 import mysql.connector as mysql
 import random
+import csv
 
 
 def pioche (nb_carte_pioche, case_type,piocher):
@@ -76,3 +77,6 @@ def inventory_count(player):
             a += 1
         if collection != []:
             player.point += 1 + 2*len(collection-1)  # player derive seconde # suite AHRItmétique
+
+def create_board():
+    print("a faire")
