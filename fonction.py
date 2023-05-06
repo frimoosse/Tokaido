@@ -5,6 +5,7 @@
 import mysql.connector as mysql
 import random
 import csv
+import pygame
 
 
 def pioche (nb_carte_pioche, case_type,piocher):
@@ -62,7 +63,6 @@ def preparatifs(list_of_player):        # liste des joueurs triée dans l'ordre 
         if y != -1 :
             y -= 1
 
-
 def inventory_count(player):
     loop = True
     while loop:
@@ -78,5 +78,50 @@ def inventory_count(player):
         if collection != []:
             player.point += 1 + 2*len(collection-1)  # player derive seconde # suite AHRItmétique
 
-def create_board():
-    print("a faire")
+def draw_player_stat(player, font, colour, screen):
+    img = font.render(str(player.pseudo) + " " + str(player.point) + "pts",True, (0,0,0))
+    pygame.draw.circle(screen,(105, 37, 187),(50,50), 75)        # couleur = player.colour
+    pygame.draw.rect(screen,(105, 37, 187),(0,0,400,50))
+    pygame.draw.circle(screen,(105, 37, 187),(400,0),50 )
+    screen.blit(img, (150,10) )
+
+def stat_player(player, font, colour, screen,display):
+    stat_list = player.Display_player()
+    list_carte = []
+    list_carte2 = []
+    list_carte.append(pygame.image.load("IMAGE/Yen.png"))
+    list_carte.append(pygame.image.load("IMAGE/panorama/mer/dos.jpeg"))
+    list_carte.append(pygame.image.load("IMAGE/panorama/montagne/dos montagne.jpeg"))
+    list_carte.append(pygame.image.load("IMAGE/panorama/riziere/dos riziere.jpeg"))
+    for b in range (len(stat_list)-1):
+        if b != 0:
+            img2 = pygame.transform.scale(list_carte[b], (50,80))
+            list_carte2.append(img2)
+        else:
+            img2 = pygame.transform.scale(list_carte[b], (50,50))
+            list_carte2.append(img2)
+
+    if display:
+        pygame.draw.rect(screen,(105, 37, 187), (0,100,100,450))
+        for a in range (len(stat_list)-1):
+            img = font.render(str(stat_list[a]),True,(0,0,0))
+            screen.blit(list_carte2[a],(5,175+a*90))
+            screen.blit(img,(75,185+a*90))
+
+def legal_move (player,board):
+    for station in board:
+        if player.yen == 0:
+            if station.nom == "echoppe":
+                station.enable = False
+            if station.nom == "temple":
+                station.enable = False
+        elif player.panorama_mer == 5 and station.nom == "mer":
+            station.enable = False
+        elif player.panorama_montagne == 4 and station.nom == "montagne":
+            station.enable = False
+        elif player.panorama_riziere == 3 and station.nom == "riziere":
+            station.enable = False
+        elif player.position >= station.num_case:
+            station.enable = False
+        else:
+            station.enable = True

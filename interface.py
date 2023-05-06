@@ -3,6 +3,11 @@ from pygame.locals import *
 import Classe as c
 import csv
 import random as r
+import Stations_effects as se
+import fonction as f
+
+couleur = []
+
 
 # test
 
@@ -26,9 +31,11 @@ case = None
 
 nb_in_relais = 0
 
-
-
-
+purple = (105, 37, 187)
+blue = (12,115,178)
+green = (13,106,5)
+gray = (160,160,160)
+orange = (218,85,4)
 
 
 # setup
@@ -57,18 +64,34 @@ with open('plateau.csv', newline= '') as boardread:
       if raw == ['ï»¿']:
           pass
       else:
-         print (raw)
          case = c.station(int(raw[0]),raw[1],int(raw[2]),int(raw[3])-50,int(raw[4])-50,board)
          case.draw()
          case_board.append(case)
+
+# bouton stat
+
+bouton = pygame.image.load("IMAGE/egale.png")
+bouton = pygame.transform.scale(bouton, (50,30))
+bouton_rect = pygame.rect.Rect((50,125),(50,30))
+
+
+display_stat = False
 # jeu
 while True: 
+    f.legal_move(player_turn,case_board)
+    font = pygame.font.Font(None, 40)
+    font2 = pygame.font.Font(None, 40)
     for event in pygame.event.get():
          for case in case_board:
             if case.hit(board_rect.left ,moving) != False:
-               case.effect(player_turn,repas,item,nb_joueur)
+               se.station_effect(case.nom,player_turn,nb_in_relais,nb_joueur,item,repas)
+               player_turn.position = case.num_case
 
-         if event.type == pygame.QUIT:
+         if pygame.mouse.get_pressed()[0] and bouton_rect.collidepoint(pygame.mouse.get_pos()) and display_stat == False:
+             display_stat = True
+         elif event.type == MOUSEBUTTONDOWN and bouton_rect.collidepoint(pygame.mouse.get_pos()) and display_stat == True:
+             display_stat = False
+         elif event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
          elif event.type == MOUSEBUTTONDOWN:
@@ -78,7 +101,7 @@ while True:
               moving = False
          elif event.type == MOUSEMOTION and moving:
               board_rect.move_ip(event.rel) 
-
+   
     pygame.display.flip()
     screen.fill((0,0,0))
     # fonction hit box
@@ -92,9 +115,13 @@ while True:
     board.blit(img,(0,0))
     screen.blit(board,board_rect)
 
+    f.stat_player(player_turn, font2, colour, screen, display_stat)
+    f.draw_player_stat(player_turn, font, colour, screen)
+    screen.blit(bouton,(25,125))
+
     crosshair_group.draw(screen)
     crosshair_group.update()
-    clock.tick(244)
+    clock.tick(120)
 
 
 

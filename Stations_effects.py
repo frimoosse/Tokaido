@@ -4,7 +4,6 @@ import Card_effect_rencontre as cer
 import fonction as f
 import random as r
 import csv
-import Main
 
 
 def station_effect (station,player,relais,nb_joueur,item,repas):
@@ -83,8 +82,6 @@ def station_effect (station,player,relais,nb_joueur,item,repas):
 
     elif station == "temple":
         offrande = int(input("nombre de piece a offrir"))
-        while offrande > player.yen:
-            offrande = int(input("nombre de piece a offrir"))
         player.yen -= offrande
         player.offrande += offrande
         player.point += offrande
@@ -117,7 +114,7 @@ def station_effect (station,player,relais,nb_joueur,item,repas):
 
     elif station == "montagne":
         rencontre = 'Annaibito Montagne'
-        cer.effet( rencontre ,player)
+        cer.effet(rencontre ,player)
 
     elif station == "ferme":
         player.yen += 3
@@ -142,13 +139,7 @@ def station_effect (station,player,relais,nb_joueur,item,repas):
                 cer.effet( rencontre ,player)
             elif ask == 3:
                 rencontre = 'Annaibito Rizière'
-                cer.effet(rencontre,player)
-
-
-        if Main.gastronomie and relais == 0:                                            # 
-            repas.actuel,poi = (f.pioche(nb_joueur,"repas",repas.precedent))            # Si Gastronomie ###############
-            for a in range (len(repas.actuel)):                                         #
-                repas.precedent.append(poi[a])  
+                cer.effet(rencontre,player) 
 
         elif relais == 0:
             repas.actuel,poi = (f.pioche(nb_joueur+1,"repas",repas.precedent))

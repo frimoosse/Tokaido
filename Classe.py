@@ -24,7 +24,7 @@ class joueur ():
         self.panorama_riziere = 0
 
     def Display_player (self):
-        print("pseudo : ",self.pseudo,"\ncouleur : ",self.colour,"\npersonnage : ",self.character,"\npoint : ",self.point,"\npiece : ",self.yen,"\nnb panorama mer : ",self.panorama_mer,"\npanorama montagne : ",self.panorama_montagne,"\nnb panorama riziere : ",self.panorama_riziere)
+        return [self.yen,self.panorama_mer,self.panorama_montagne,self.panorama_riziere,self.offrande]
 
 class Crosshair(pygame.sprite.Sprite):
     def __init__(self, picture_path):
@@ -48,8 +48,6 @@ class item():
 class defausse ():
     def __init__(self):
         self.allcard = []
-
-
         
 class station():
     def __init__(self, num_case, nom, place, pos_x, pos_y,board):
@@ -79,6 +77,8 @@ class station():
         else:
             return False
 
+
+# test
 class temple(station):
     def effect (player, repas,items,nb_joueur):
         offrande = int(input("nombre de piece a offrir"))
@@ -197,7 +197,6 @@ class relais (station):
                     player.yen -= int(prix)
                     choix = -2
 
-            
 class echoppe (station):
     def effect (self, player, repas, items, nb_joueur):
         achat = []
