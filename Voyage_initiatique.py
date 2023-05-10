@@ -98,6 +98,8 @@ while partie:
 
     player_turn.position = move              ## il faudra modifier la position sur la BDD en plus
 
+    player_turn.Display_player()
+
     last = 100
     for player in list_of_player:
         if player.position < last:
@@ -113,10 +115,6 @@ while partie:
     if nb_in_relais == nb_joueur:
         a += 1
         nb_in_relais = 0
-
-    #player_turn.Display_player()
-    print(player_turn.inventaire)
-    print(player_turn.yen)
 
     if a == 5:
         partie = False

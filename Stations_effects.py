@@ -5,6 +5,7 @@ import fonction as f
 import random as r
 import csv
 
+
 def station_effect (station,player,relais,nb_joueur,item,repas):
 
     if station == "echoppe" :
@@ -81,17 +82,25 @@ def station_effect (station,player,relais,nb_joueur,item,repas):
 
     elif station == "temple":
         offrande = int(input("nombre de piece a offrir"))
-        while offrande > player.yen:
-            offrande = int(input("nombre de piece a offrir"))
         player.yen -= offrande
         player.offrande += offrande
         player.point += offrande
 
     elif station == "rencontre":
-        p=[]
-        pioche = f.pioche(1,station,p)[0]
-        print(pioche)
-        cer.effet(pioche[0],player)
+        if player.character == "Umegae":
+            player.yen += 1
+            player.point += 1
+        if player.character == "Yoshiyasu":
+            p=[]
+            pioche = f.pioche(2,station,p)[0]
+            print(pioche)
+            choix =int(input("quel carte ?"))
+            cer.effet(pioche[choix],player)
+        else : 
+            p=[]
+            pioche = f.pioche(1,station,p)[0]
+            print(pioche)
+            cer.effet(pioche[0],player)
 
     elif station == "riziere":
         rencontre = 'Annaibito Rizière'
@@ -100,10 +109,12 @@ def station_effect (station,player,relais,nb_joueur,item,repas):
     elif station == "source":
         pt = r.randint(2,3)
         player.point += pt
+        if player.character == "Mitsukuni":
+            player.point += 1
 
     elif station == "montagne":
         rencontre = 'Annaibito Montagne'
-        cer.effet( rencontre ,player)
+        cer.effet(rencontre ,player)
 
     elif station == "ferme":
         player.yen += 3
@@ -113,35 +124,65 @@ def station_effect (station,player,relais,nb_joueur,item,repas):
         cer.effet(rencontre,player)
 
     elif station == "relais":
-        if relais == 0:
+        if player.character == "Chuubei":
+            p=[]
+            pioche = f.pioche(1,"rencontre",p)[0]
+            print(pioche)
+            cer.effet(pioche[0],player)
+        if player.character == "Hiroshige":
+            ask = int(input("which panorama choice ? "))
+            if ask == 1:
+                rencontre = 'Annaibito Mer'
+                cer.effet(rencontre,player)
+            elif ask == 2:
+                rencontre = 'Annaibito Montagne'
+                cer.effet( rencontre ,player)
+            elif ask == 3:
+                rencontre = 'Annaibito Rizière'
+                cer.effet(rencontre,player) 
+
+        elif relais == 0:
             repas.actuel,poi = (f.pioche(nb_joueur+1,"repas",repas.precedent))
             for a in range (len(repas.actuel)):
                 repas.precedent.append(poi[a])
 
-        print(repas.actuel)
         
-        choix = int(input("repas choisi"))
-
-        if choix == -1:
-            return
-
-        with open('repas.csv') as repas2:                      
-            csv_reader = csv.reader(repas2, delimiter = ',')
-            nom_repas = repas.actuel[choix]
-            for row in csv_reader:
-                if str(nom_repas) == row[0]:
-                    prix = row[1]
+        
+        choix = 0
+        while choix != -2:
+            print(repas.actuel)
             
-        if int(prix) > player.yen:
             choix = int(input("repas choisi"))
 
-        else:
-            del(repas.actuel[choix])
-            player.point += 6
-            player.yen -= int(prix)
+            if choix == -1:
+                return
+
+            with open('repas.csv') as repas2:                      
+                csv_reader = csv.reader(repas2, delimiter = ',')
+                nom_repas = repas.actuel[choix]
+                for row in csv_reader:
+                    if str(nom_repas) == row[0]:
+                        prix = row[1]
+
+            if player.character == "Kinko":
+                if (int(prix)-1) <= player.yen:
+                    del(repas.actuel[choix])
+                    player.point += 6
+                    player.yen -= (int(prix)-1)
+                    choix = -2
+                    
+            else:
+                if int(prix) < player.yen:
+                    del(repas.actuel[choix])
+                    player.point += 6
+                    player.yen -= int(prix)
+                    choix = -2
 
             
 
 
     else:
         print("Fonctionne pas")
+
+
+        # sasayakko   Zen-emon   satsuki
